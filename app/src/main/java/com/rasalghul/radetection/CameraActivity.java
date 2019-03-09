@@ -51,12 +51,15 @@ public class CameraActivity extends Activity implements RecognitionListener {
     public SpeechRecognizer speech;
     public Intent intent;
     private String url = "";
+    private boolean isDaily, isLeft;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
         url = getIntent().getStringExtra("url");
+        isDaily = getIntent().getBooleanExtra("isDaily",false);
+        isLeft = getIntent().getBooleanExtra("isLeft",false);
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
@@ -151,10 +154,17 @@ public class CameraActivity extends Activity implements RecognitionListener {
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + pictureFile)));
 
                 System.out.println("Samarth 9");
-                Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
-                in.putExtra("filePath",pictureFile.getAbsolutePath());
-                in.putExtra("url",url);
-                startActivity(in);
+                if(!isDaily) {
+                    Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
+                    in.putExtra("filePath", pictureFile.getAbsolutePath());
+                    in.putExtra("url", url);
+                    startActivity(in);
+                }else{
+                    Intent in = new Intent(CameraActivity.this, DailyAssessmentActivity.class);
+                    in.putExtra("hand", "right");
+                    in.putExtra("question", 10);
+                    startActivity(in);
+                }
                 finish();
             } catch (FileNotFoundException e) {
                 Log.d(TAG, "File not found: " + e.getMessage());
@@ -385,6 +395,7 @@ public class CameraActivity extends Activity implements RecognitionListener {
     }
 
     public void capturePic(View v){
+       // mCamera = getCameraInstance();
         mCamera.takePicture(null, null, mPicture);
     }
 }

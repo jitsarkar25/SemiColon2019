@@ -15,6 +15,7 @@ public class DailyAlarmReciever extends BroadcastReceiver {
         boolean isVoiceEnabled = sharedPreferences.getBoolean("isVoiceEnabled",false);
         if(isVoiceEnabled){
             Intent i = new Intent(context,DailyAssessmentActivity.class);
+            i.putExtra("hand","left");
             context.startActivity(i);
         }
         Log.d("MyAlarmBelal", "Alarm just fired");

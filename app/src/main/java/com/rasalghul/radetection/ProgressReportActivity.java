@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 public class ProgressReportActivity extends AppCompatActivity {
 
     private WebView webView;
-    private String url = "https://radetection-developer-edition.ap8.force.com/";
+    private String url = "https://mortgagedemo-developer-edition.na85.force.com/RaGul/ChartTest?patientId=0031U00000FEfHU";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
