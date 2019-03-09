@@ -19,142 +19,178 @@
         />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="2dp"
-     android:layout_weight="2"
-        android:padding="5dp"
-        android:background="@drawable/list_back"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-
-            android:layout_weight="2"
-            android:src="@drawable/hand"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="2dp" />
-
+        android:layout_weight="8"
+        android:weightSum="2"
+        android:orientation="vertical"
+        android:layout_height="0dp">
         <LinearLayout
-            android:layout_width="0dp"
-            android:orientation="vertical"
-            android:weightSum="10"
-            android:background="@drawable/list_back"
-            android:layout_marginLeft="10dp"
-            android:layout_height="100dp"
-            android:layout_weight="8">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="Hands"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
-                android:layout_weight="5"
-                />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:textSize="35dp"
-                android:gravity="center_vertical"
-                android:weightSum="10"
-                android:layout_weight="5"
-                >
-                <Button
                 android:layout_width="0dp"
-                android:text="Left"
-                android:textSize="10dp"
-                android:onClick="lefthandImage"
-                android:textColor="@color/colorTextView"
-                android:background="@drawable/button_selector_blue"
-                android:layout_height="35dp"
-                android:layout_weight="5"
-                    />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:weightSum="4"
+                android:layout_margin="2dp"
+                android:background="@drawable/list_back"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/arthrities"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="2dp" />
+
                 <Button
-                    android:layout_width="0dp"
-                    android:text="Right"
-                    android:textSize="10dp"
-                    android:layout_weight="5"
-                    android:onClick="righthandImage"
-                    android:textColor="@color/colorTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/bArithiritis"
                     android:background="@drawable/button_selector_blue"
-                    android:layout_height="35dp" />
+                    android:text="Test Arthiritis"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/list_back"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:weightSum="4"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/list_back"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:rotation="90"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/redness"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="2dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/bRedness"
+
+                        android:background="@drawable/button_selector_blue"
+                        android:text="Test Redness"
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:weightSum="4"
+                android:layout_margin="2dp"
+                android:background="@drawable/list_back"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/deformity"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="2dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/bDeformity"
+                    android:background="@drawable/button_selector_blue"
+                    android:text="Test Deformity"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="0dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/list_back"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:weightSum="4"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/list_back"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/swelling"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="2dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/bSwollen"
+                        android:background="@drawable/button_selector_blue"
+                        android:text="Test Swollen"
+                        />
+
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:padding="5dp"
-        android:layout_margin="2dp"
-        android:background="@drawable/list_back"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="2"
-            android:src="@drawable/elbow"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="2dp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_height="100dp"
-            android:layout_weight="8">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="Elbows"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
-                android:layout_weight="5"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:textSize="35dp"
-                android:gravity="center_vertical"
-                android:weightSum="10"
-                android:layout_weight="5"
-                >
-                <Button
-                    android:layout_width="0dp"
-                    android:text="Left"
-                    android:textSize="10dp"
-                    android:onClick="otherImages"
-                    android:textColor="@color/colorTextView"
-                    android:background="@drawable/button_selector_blue"
-                    android:layout_height="35dp"
-                    android:layout_weight="5"
-                    />
-                <Button
-                    android:layout_width="0dp"
-                    android:text="Right"
-                    android:textSize="10dp"
-                    android:layout_weight="5"
-                    android:onClick="otherImages"
-                    android:textColor="@color/colorTextView"
-                    android:background="@drawable/button_selector_blue"
-                    android:layout_height="35dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-       android:layout_weight="2"
         android:layout_margin="2dp"
         android:padding="5dp"
         android:background="@drawable/list_back"
@@ -220,7 +256,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-   android:layout_weight="2"
+        android:layout_weight="2"
         android:layout_margin="2dp"
         android:padding="5dp"
         android:background="@drawable/list_back"
@@ -283,6 +319,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    </LinearLayout>
 
 </LinearLayout>

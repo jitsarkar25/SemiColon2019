@@ -3,6 +3,7 @@ package com.rasalghul.radetection;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
@@ -49,12 +50,13 @@ public class CameraActivity extends Activity implements RecognitionListener {
     public TextToSpeech t1;
     public SpeechRecognizer speech;
     public Intent intent;
-
+    private String url = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        url = getIntent().getStringExtra("url");
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
@@ -74,32 +76,34 @@ public class CameraActivity extends Activity implements RecognitionListener {
 
 //System.out.println(size.width + "mm" + size.height);
         params.setPictureSize(size.width, size.height);
-        params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         params.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
         params.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
         params.setExposureCompensation(0);
         params.setPictureFormat(ImageFormat.JPEG);
         params.setJpegQuality(100);
+        params.setRotation(90);
         mCamera.setParameters(params);
         mCamera.setDisplayOrientation(90);
 
-        System.out.println("Samarth 2");
+
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
 
-        System.out.println("Samarth 3");
-
-        Download d ;
-        String s = null;
-        try {
-            d = new Download();
-        }
-        catch(Exception e){
-            Log.i("Exception", e.getMessage());
+        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+        boolean isVoiceEnabled =  sharedPreferences.getBoolean("isVoiceEnabled",false);
+        if(isVoiceEnabled) {
+            Download d;
+            String s = null;
+            try {
+                d = new Download();
+            } catch (Exception e) {
+                Log.i("Exception", e.getMessage());
+            }
         }
 
     }
@@ -132,27 +136,26 @@ public class CameraActivity extends Activity implements RecognitionListener {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
 
-            System.out.println("Samarth 6");
+
             releaseCamera();
             File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            System.out.println("Samarth 7");
             if (pictureFile == null){
                 Log.d(TAG, "Error creating media file, check storage permissions");
                 return;
             }
 
             try {
-                System.out.println("Samarth 8");
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + pictureFile)));
 
                 System.out.println("Samarth 9");
-                /*Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
+                Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
                 in.putExtra("filePath",pictureFile.getAbsolutePath());
-
-                startActivity(in);*/
+                in.putExtra("url",url);
+                startActivity(in);
+                finish();
             } catch (FileNotFoundException e) {
                 Log.d(TAG, "File not found: " + e.getMessage());
             } catch (IOException e) {
@@ -379,5 +382,9 @@ public class CameraActivity extends Activity implements RecognitionListener {
 
         }
 
+    }
+
+    public void capturePic(View v){
+        mCamera.takePicture(null, null, mPicture);
     }
 }

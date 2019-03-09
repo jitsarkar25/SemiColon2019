@@ -86,12 +86,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            startActivity(new Intent(getApplicationContext(),QuickTestActivity.class));
 
             // Handle the camera action
         } else if (id == R.id.nav_assessment) {
             startActivity(new Intent(getApplicationContext(),SelectJointActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_progress) {
+            startActivity(new Intent(getApplicationContext(),ProgressReportActivity.class));
 
         } else if (id == R.id.nav_manage) {
 

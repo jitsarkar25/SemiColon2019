@@ -23,16 +23,17 @@
   </LinearLayout>
   <LinearLayout
       android:layout_marginTop="3dp"
+      android:clickable="true"
+      android:onClick="assessmentTime"
       android:layout_width="match_parent"
       android:background="@drawable/list_back"
       android:layout_height="50dp">
     <TextView
         android:layout_width="match_parent"
-        android:onClick="assessmentTime"
         android:textColor="@color/colorTextView"
         android:text="Set Daily Assessment Time"
         android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
   </LinearLayout>
 </LinearLayout>

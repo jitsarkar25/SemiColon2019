@@ -19,6 +19,7 @@
     <Button
         android:id="@+id/button_capture"
         android:text="Capture"
+        android:onClick="capturePic"
         android:textColor="@color/colorTextView"
         android:background="@drawable/button_selector_blue"
         android:layout_width="match_parent"

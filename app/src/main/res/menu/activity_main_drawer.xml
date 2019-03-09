@@ -13,7 +13,7 @@
             android:icon="@drawable/newmedicine"
             android:title="New Assesment" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_progress"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Progress Report" />
         <item
