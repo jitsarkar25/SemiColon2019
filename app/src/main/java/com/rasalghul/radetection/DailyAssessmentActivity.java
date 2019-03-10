@@ -59,7 +59,7 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
     public int questionNumber;
     public String[] conditionList;
     List<dataWrapper> dw = new ArrayList<dataWrapper>();
-    private EditText editText;
+    //private EditText editText;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
     private MemberData data;
@@ -69,8 +69,8 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_assessment);
-
-        editText = (EditText) findViewById(R.id.editText);
+        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+        //editText = (EditText) findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
         messagesView = (ListView) findViewById(R.id.messages_view);
@@ -124,11 +124,11 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
         }
 
         text = text.replace("{Patient_Name}","Samarth");
-        text = text.replace("{activity_name}","Swimming");
+        text = text.replace("{activity_name}",sharedPreferences.getString("walked",""));
 
         text = text.replace("{hand}",getIntent().getStringExtra("hand"));
 
-        text = text.replace("{previous_data}","6");
+        text = text.replace("{previous_data}",sharedPreferences.getString("pain","0"));
         Log.d("Samarth",text);
         questionList = text.split("\n");
 
@@ -156,12 +156,12 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
 
                         @Override
                         public void onStart(String utteranceId) {
+                            setChatText(toSpeak, false);
                             //getInput();
                         }
 
                         @Override
                         public void onDone(String utteranceId) {
-                            setChatText(toSpeak, false);
                             if(isQuestion) {
                                 Log.d("Samarth","Question hai");
                                 Handler mainHandler = new Handler(context.getMainLooper());
@@ -264,7 +264,12 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
 
         Log.i("text", text);
         dw.add(new dataWrapper(questionNumber,text.split("\n")[0]));
-
+        if(questionNumber == 11){
+            SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+            SharedPreferences.Editor editor= sharedPreferences.edit();
+            editor.putString("pain",text.split("\n")[0]);
+            editor.commit();
+        }
         if(questionNumber < questionList.length) {
             int nextQuestionYes = Integer.parseInt(conditionList[questionNumber].split("#")[1].trim().split(":")[0].trim());
             int nextQuestionNo = Integer.parseInt(conditionList[questionNumber].split("#")[1].trim().split(":")[1].trim());
@@ -333,15 +338,7 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
             }
         });
     }
-        private String getRandomName() {
-            String[] adjs = {"autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"};
-            String[] nouns = {"waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"};
-            return (
-                    adjs[(int) Math.floor(Math.random() * adjs.length)] +
-                            "_" +
-                            nouns[(int) Math.floor(Math.random() * nouns.length)]
-            );
-        }
+
 
         private String getRandomColor() {
             Random r = new Random();
@@ -351,7 +348,7 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
             }
             return sb.toString().substring(0, 7);
         }
-    public void callouts(String url){
+   /* public void callouts(String url){
         //String url = "http://deformity-env.6jdiudp7q7.ap-south-1.elasticbeanstalk.com/";
         Context context=getApplicationContext();
         JSONObject jsonBody = new JSONObject();
@@ -436,7 +433,7 @@ public class DailyAssessmentActivity extends AppCompatActivity  implements Recog
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-    }
+    }*/
     }
 
     class MemberData {

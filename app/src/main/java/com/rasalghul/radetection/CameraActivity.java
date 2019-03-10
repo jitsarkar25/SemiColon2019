@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -155,15 +158,55 @@ public class CameraActivity extends Activity implements RecognitionListener {
 
                 System.out.println("Samarth 9");
                 if(!isDaily) {
+
                     Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
                     in.putExtra("filePath", pictureFile.getAbsolutePath());
                     in.putExtra("url", url);
                     startActivity(in);
                 }else{
-                    Intent in = new Intent(CameraActivity.this, DailyAssessmentActivity.class);
-                    in.putExtra("hand", "right");
-                    in.putExtra("question", 10);
-                    startActivity(in);
+                    if(!isLeft){
+                        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if(status != TextToSpeech.ERROR) {
+                                    t1.setLanguage(Locale.UK);
+                                }
+                            }
+                        });
+                        t1.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+
+                            @Override
+                            public void onStart(String utteranceId) {
+
+                            }
+
+                            @Override
+                            public void onDone(String utteranceId) {
+                                Handler mainHandler = new Handler(getMainLooper());
+                                Runnable myRun=new Runnable() {
+                                    @Override
+                                    public void run() {
+                                     finish();
+                                    }
+                                };
+                                mainHandler.post(myRun);
+
+                            }
+
+                            @Override
+                            public void onError(String utteranceId) {
+
+                            }
+                        });
+                        t1.speak("Thank You for your time. Talk to you tomorrow.", TextToSpeech.QUEUE_FLUSH, null);
+                        //finish();
+                    }
+                    else {
+                        Intent in = new Intent(CameraActivity.this, DailyAssessmentActivity.class);
+                        in.putExtra("hand", "right");
+                        in.putExtra("question", 10);
+                        startActivity(in);
+                    }
                 }
                 finish();
             } catch (FileNotFoundException e) {
@@ -219,23 +262,6 @@ public class CameraActivity extends Activity implements RecognitionListener {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 10:
-                if (resultCode == RESULT_OK && data != null) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.i("result", result.get(0));
-                    if(result.get(0).equalsIgnoreCase("Click")) {
-                        Log.i("Excuted", "In start activity");
-                        mCamera.takePicture(null, null, mPicture);
-                    }
-
-                }
-        }
-    }
 
     @Override
     public void onReadyForSpeech(Bundle params) {
@@ -397,5 +423,34 @@ public class CameraActivity extends Activity implements RecognitionListener {
     public void capturePic(View v){
        // mCamera = getCameraInstance();
         mCamera.takePicture(null, null, mPicture);
+    }
+    public void selectGallery(View v){
+        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, 50);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+            case 50 :
+                if(resultCode == RESULT_OK && data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(selectedImage, null, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    Intent in = new Intent(CameraActivity.this, ImageViewActivity.class);
+                    in.putExtra("filePath", picturePath);
+                    in.putExtra("url", url);
+                    startActivity(in);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Image Is Not Correct", Toast.LENGTH_SHORT);
+                }
+        }
     }
 }

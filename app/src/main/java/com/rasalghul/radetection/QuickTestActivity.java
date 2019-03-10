@@ -33,7 +33,7 @@ public class QuickTestActivity extends AppCompatActivity implements View.OnClick
                 url = GlobalConstant.machineLearningEndpoint;
                 break;
             case R.id.bSwollen:
-                url = GlobalConstant.machineLearningEndpoint;
+                url = GlobalConstant.swollenEndPoint;
                 break;
             case R.id.bDeformity:
                 url = GlobalConstant.deformityEndPoint;

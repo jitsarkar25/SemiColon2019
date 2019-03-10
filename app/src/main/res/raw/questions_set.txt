@@ -1,7 +1,7 @@
 Good {Time} {Patient_Name}.@false
-Raaa Bot hopes you are having a good day.@false
+Ra Bot hopes you are having a good day.@false
 Would you like to tell us how have you been?@true
-I see you have been {activity_name}. So, how are you feeling?@true
+I see you have {activity_name}. So, how are you feeling?@true
 Let's begin your assessment for today.@false
 Did you get fever since your last assessment? Say Yes or No.@true
 Did you take your medicines? Say Yes or No.@true
@@ -13,4 +13,4 @@ You were feeling pain level of {previous_data} last time. How do you think your 
 Do you want to record any progress such as symptoms or your hand conditions? Say that otherwise say No.@true
 Ok thanks!@false
 Let's take a full photo of your {hand} hand now.@false
-Please read the instructions carefully. Click next when you are ready.@false
+Please take the image on a white background.@false

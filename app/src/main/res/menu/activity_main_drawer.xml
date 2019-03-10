@@ -8,10 +8,7 @@
             android:id="@+id/nav_camera"
             android:icon="@drawable/deliveredmeds"
             android:title="Quick Test" />
-        <item
-            android:id="@+id/nav_assessment"
-            android:icon="@drawable/newmedicine"
-            android:title="New Assesment" />
+
         <item
             android:id="@+id/nav_progress"
             android:icon="@drawable/ic_menu_slideshow"

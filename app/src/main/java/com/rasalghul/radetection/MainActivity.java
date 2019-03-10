@@ -160,8 +160,12 @@ public class MainActivity extends AppCompatActivity
                         DataSet dataSet = dataReadResponse.getDataSet(DataType.TYPE_STEP_COUNT_DELTA);
 
                     try{
-                                            String s= dataReadResponse.getBuckets().toString().split("RawDataPoint\\{\\[")[1];
-                                            lastSteps.setText("Walked "+s.split("\\]")[0]+" steps in last 24 hours");
+                        String s= dataReadResponse.getBuckets().toString().split("RawDataPoint\\{\\[")[1];
+                        lastSteps.setText("Walked "+s.split("\\]")[0]+" steps in last 24 hours");
+                        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("walked","Walked "+s.split("\\]")[0]+" steps in last 24 hours ");
+                        editor.commit();
                                             Log.d("success", s.split("\\]")[0]);
                     }catch (Exception e){
                         Toast.makeText(getApplicationContext(),"No Previous Data FOund on Google Fit",Toast.LENGTH_SHORT).show();
@@ -235,10 +239,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(),QuickTestActivity.class));
 
             // Handle the camera action
-        } else if (id == R.id.nav_assessment) {
-            startActivity(new Intent(getApplicationContext(),SelectJointActivity.class));
-
-        } else if (id == R.id.nav_progress) {
+        }  else if (id == R.id.nav_progress) {
             startActivity(new Intent(getApplicationContext(),ProgressReportActivity.class));
 
         } else if (id == R.id.nav_manage) {
@@ -255,5 +256,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void lefthandImage(View v){
+        Intent intent = new Intent(getApplicationContext(),CameraActivity.class);
+        intent.putExtra("hand","left");
+        startActivity(intent);
+
+
+    }
+    public void righthandImage(View v){
+        Intent intent = new Intent(getApplicationContext(),CameraActivity.class);
+        intent.putExtra("hand","right");
+        startActivity(intent);
+    }
+    public void otherImages(View v){
+        Toast.makeText(getApplicationContext(),"Feature to be implemented soon",Toast.LENGTH_SHORT).show();
     }
 }
